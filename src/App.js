@@ -3,8 +3,6 @@ import './App.css'
 import Map from './components/map';
 import Restaurants from './components/restaurants';
 import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import createPalette from '@material-ui/core/styles/createPalette';
-import createTypography from '@material-ui/core/styles/createTypography';
 import { useEffect, useState } from 'react';
 
 
@@ -81,7 +79,8 @@ function App() {
           "comment": "Meh, it was fine."
         }
       ],
-      "averageStar": 4
+      "averageStar": 4,
+      "source": "json"
     },
     {
       "restaurantName": "Babalou",
@@ -99,7 +98,8 @@ function App() {
           "comment": "Meh, it was fine."
         }
       ],
-      "averageStar": 4
+      "averageStar": 4,
+      "source": "json"
     },
     {
       "restaurantName": "Babalou",
@@ -116,7 +116,8 @@ function App() {
           "stars": 3,
           "comment": "Meh, it was fine."
         }
-      ]
+      ],
+      "source": "json"
     },
     {
       "restaurantName": "Babalou",
@@ -124,6 +125,7 @@ function App() {
       "lat": 10.8240,
       "long": 106.6297,
       "price": "5-15$",
+      "averageStar": 4,
       "ratings": [
         {
           "stars": 5,
@@ -133,17 +135,11 @@ function App() {
           "stars": 3,
           "comment": "Meh, it was fine."
         }
-      ]
+      ],
+      "source": "json"
     }
   ])
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        // setLocation({lat: position.coords.latitude, long: position.coords.longitude})
-      })
-    }
-  });
 
   return (
     <MuiThemeProvider theme={theme}>

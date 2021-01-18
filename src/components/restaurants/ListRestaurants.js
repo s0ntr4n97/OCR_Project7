@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ListRestaurants(props) {
   const classes = useStyles();
-  console.log(props.restaurants);
 
   return (
     <Grid>

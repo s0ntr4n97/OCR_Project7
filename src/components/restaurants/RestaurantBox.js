@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, Typography } from '@material-ui/core';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import StarRateIcon from '@material-ui/icons/StarRate';
-import Review from './Review';
+import Review from '../review';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +52,7 @@ function RestaurantBox(props) {
           </Grid>
           <Grid style={{ "bottom": 0, "position": "absolute" }}>
             <Typography variant="body1" gutterBottom color="primary">
-              <StarRateIcon color="error" style={{ "verticalAlign": "middle" }} />4.2
+              <StarRateIcon color="error" style={{ "verticalAlign": "middle" }} />{props.rest.averageStar}
             </Typography>
           </Grid>
         </Grid>
@@ -61,7 +61,7 @@ function RestaurantBox(props) {
           <Button className={classes.reviewBtn} variant="contained" size="small" onClick={openReview}>Review</Button>
         </Grid>
       </Grid>
-      <Review open={open} closeReview={closeReview} />
+      <Review open={open} closeReview={closeReview} rest={props.rest} />
     </Grid>
   )
 
