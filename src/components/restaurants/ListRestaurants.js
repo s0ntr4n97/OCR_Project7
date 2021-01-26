@@ -1,4 +1,4 @@
-import { Grid, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import RestaurantBox from './RestaurantBox';
 
@@ -33,6 +33,7 @@ function ListRestaurants(props) {
         <TextField type="number" name="starTo" className={classes.starInput} InputProps={{ inputProps: { min: 0, max: 5 } }} />
         <Typography variant="body1" display="inline" className={classes.labelSelector}>To</Typography>
         <TextField type="number" name="starFrom" className={classes.starInput} InputProps={{ inputProps: { min: 0, max: 5 } }} />
+        <Button variant="contained" size="small">Find</Button>
       </Grid>
       <Grid container className={classes.root}>
         {props.restaurants.map((rest, idx) => <RestaurantBox key={idx} rest={rest} />)}
