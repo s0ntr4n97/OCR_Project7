@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Divider, FormControl, Grid, Input, InputLabel, Modal, OutlinedInput, Typography } from '@material-ui/core';
+import { Button, CardMedia, Divider, FormControl, Grid, Input, InputLabel, Modal, OutlinedInput, Typography } from '@material-ui/core';
+import StarRatings from 'react-star-ratings';
 import ReviewBox from './ReviewBox'
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "10px 30px 10px 30px"
+    padding: "10px 30px 10px 30px",
   },
   paper: {
     position: 'absolute',
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
+    overflowY: "scroll"
   },
   marginBottomBig: {
     marginBottom: theme.spacing(6)
@@ -51,7 +53,19 @@ function getModalStyle() {
 function Review(props) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
 
+  const addRating = () => {
+    const newRating = {
+      stars: rating,
+      comment: comment
+    };
+    props.addComment(props.rest["id"], newRating);
+    console.log(props.rest)
+    setComment("");
+    setRating(0);
+  }
 
   return (
     <Modal
@@ -63,15 +77,39 @@ function Review(props) {
     >
       <Grid style={modalStyle} className={classes.paper}>
         <Grid container className={classes.root}>
-          <Typography variant="h6" className={classes.marginBottomBig}>{props.rest.restaurantName} </Typography>
+          <div className={classes.marginBottomBig}>
+            <Typography variant="h3" gutterBottom >{props.rest.restaurantName} </Typography>
+            <Typography variant="h6" gutterBottom color="secondary" >{props.rest.address} </Typography>
+            <Typography variant="h6" gutterBottom color="secondary" >{props.rest.price} </Typography>
+            <CardMedia
+              component="img"
+              alt="Contemplative Reptile"
+              height="140"
+              image={props.rest.image}
+              title="Contemplative Reptile"
+            />
+          </div>
           <Grid container className={classes.marginBottomBig}>
             <Grid item xs={12} className={classes.marginBottomSmall}>
               <FormControl fullWidth className={classes.reviewInput} variant="outlined">
-                <OutlinedInput placeholder="Write your comment" />
+                <OutlinedInput
+                  placeholder="Write your comment"
+                  style={{ marginBottom: "5px" }}
+                  name="comment"
+                  onChange={e => setComment(e.target.value)}
+                  value={comment} />
+                <StarRatings
+                  rating={rating}
+                  starRatedColor="#f44336"
+                  changeRating={setRating}
+                  starDimension="30px"
+                  starSpacing="0"
+                  name='rating'
+                />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <Button variant="contained" color="primary">Submit</Button>
+              <Button variant="contained" color="primary" onClick={addRating} >Submit</Button>
             </Grid>
             <Divider variant="fullWidth" className={classes.divider} />
           </Grid>

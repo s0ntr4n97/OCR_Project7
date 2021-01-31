@@ -61,7 +61,7 @@ function RestaurantBox(props) {
           <Button className={classes.reviewBtn} variant="contained" size="small" onClick={openReview}>Review</Button>
         </Grid>
       </Grid>
-      <Review open={open} closeReview={closeReview} rest={props.rest} />
+      <Review open={open} closeReview={closeReview} rest={props.rest} addComment={props.addComment} />
     </Grid>
   )
 

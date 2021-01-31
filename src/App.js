@@ -40,15 +40,16 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const [location, setLocation] = useState({ lat: 10.8231, long: 106.6297 });
-  const [restaurants, setRestaurants] = useState([
+  const [position, setPosition] = useState({ lat: 10.8231, lng: 106.6297 });
+  const [allRestaurants, setAllRestaurants] = useState([
     {
       "id": 1,
       "restaurantName": "Bronco",
       "address": "39 Rue des Petites Écuries, 75010 Paris",
-      "lat": 10.8240,
-      "long": 106.6297,
+      "lat": 10.8260,
+      "lng": 106.6497,
       "price": "10-20$",
+      "image": "/images/rest.jpg",
       "ratings": [
         {
           "stars": 4,
@@ -64,10 +65,12 @@ function App() {
     },
     // adding new restaurant: source="user"
     {
-      "restaurantName": "Babalou",
+      "id": 2,
+      "restaurantName": "Baba",
       "address": "4 Rue Lamarck, 75018 Paris",
-      "lat": 10.8540,
-      "long": 106.6197,
+      "lat": 10.820,
+      "lng": 106.6497,
+      "image": "/images/rest.jpg",
       "price": "5-15$",
       "ratings": [
         {
@@ -83,10 +86,12 @@ function App() {
       "source": "json"
     },
     {
+      "id": 3,
       "restaurantName": "Babalou",
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 10.8350,
-      "long": 106.6307,
+      "lng": 106.6307,
+      "image": "/images/rest.jpg",
       "price": "5-15$",
       "ratings": [
         {
@@ -102,11 +107,14 @@ function App() {
       "source": "json"
     },
     {
-      "restaurantName": "Babalou",
+      "id": 4,
+      "restaurantName": "Roma",
       "address": "4 Rue Lamarck, 75018 Paris",
-      "lat": 10.8005,
-      "long": 106.6397,
+      "lat": 10.8205,
+      "lng": 106.6097,
       "price": "5-15$",
+      "image": "/images/rest.jpg",
+      "averageStar": 4,
       "ratings": [
         {
           "stars": 5,
@@ -120,10 +128,12 @@ function App() {
       "source": "json"
     },
     {
-      "restaurantName": "Babalou",
+      "id": 5,
+      "restaurantName": "Kema",
       "address": "4 Rue Lamarck, 75018 Paris",
       "lat": 10.8240,
-      "long": 106.6297,
+      "lng": 106.6297,
+      "image": "/images/rest.jpg",
       "price": "5-15$",
       "averageStar": 4,
       "ratings": [
@@ -139,16 +149,34 @@ function App() {
       "source": "json"
     }
   ])
+  const [restaurants, setRestaurants] = useState(allRestaurants)
+
+  const calcAvgStar = (rest) => {
+    let avgStar = 0
+    for (let rating of rest["ratings"]) {
+      avgStar += rating["stars"]
+    }
+    return avgStar / rest["ratings"].length;
+  }
+
+  const addComment = (restId, rating) => {
+    for (let restaurant of allRestaurants) {
+      if (restaurant["id"] === restId) {
+        restaurant["ratings"].unshift(rating);
+        restaurant["averageStar"] = calcAvgStar(restaurant);
+      }
+    }
+  }
 
 
   return (
     <MuiThemeProvider theme={theme}>
       <Grid container className={classes.grid}>
         <Grid item md={7}>
-          <Map className={classes.map} location={location} restaurants={restaurants} />
+          <Map className={classes.map} position={position} restaurants={restaurants} setPosition={setPosition} />
         </Grid>
         <Grid item xs={12} md={5}>
-          <Restaurants restaurants={restaurants} />
+          <Restaurants restaurants={restaurants} addComment={addComment} setRestaurants={setRestaurants} allRestaurants={allRestaurants} />
         </Grid>
       </Grid>
     </MuiThemeProvider>

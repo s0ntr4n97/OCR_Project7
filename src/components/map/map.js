@@ -66,7 +66,7 @@ function AddRestaurant() {
 
 
 export default function Map(props) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <MapContainer className={classes.root} center={[props.position.lat, props.position.lng]} zoom={13}>

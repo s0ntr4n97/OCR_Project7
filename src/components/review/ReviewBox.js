@@ -17,7 +17,7 @@ export default function ReviewBox(props) {
   const classes = useStyles();
 
   return (
-    <Grid item justifyContent="left" xs={12} zeroMinWidth className={classes.root}>
+    <Grid item xs={12} zeroMinWidth className={classes.root}>
       <h4 style={{ margin: 0, textAlign: "left" }}>{props.review.stars}
         <StarRateIcon color="error" style={{ "verticalAlign": "middle" }} />
       </h4>

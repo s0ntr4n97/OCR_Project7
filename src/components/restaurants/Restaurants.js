@@ -24,7 +24,7 @@ function Restaurants(props) {
   return (
     <Container className={classes.root}>
       <Typography variant="h4" className={classes.title} gutterBottom>Restaurants in Hanoi</Typography>
-      <ListRestaurants restaurants={props.restaurants} />
+      <ListRestaurants restaurants={props.restaurants} addComment={props.addComment} setRestaurants={props.setRestaurants} allRestaurants={props.allRestaurants} />
     </Container>
   )
 }
